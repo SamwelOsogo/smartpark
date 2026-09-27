@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block title %}Vehicle Exit - SmartPark{% endblock %}
+{% block content %}
+<section class="form-card">
+  <h2>Vehicle Exit</h2>
+
+  {% if not quote %}
+  <form method="POST" action="{{ url_for('exit_quote') }}">
+    <label for="plate">Number Plate</label>
+    <input type="text" id="plate" name="plate" placeholder="e.g. KDA123A" required autofocus>
+    <button type="submit">Calculate Amount Payable</button>
+  </form>
+  {% else %}
+  <div class="quote">
+    <p><strong>Plate:</strong> {{ quote.plate }}</p>
+    <p><strong>Bay:</strong> {{ quote.bay }}</p>
+    <p><strong>Duration parked:</strong> {{ quote.duration_minutes }} minutes ({{ quote.tier_label }})</p>
+    <p class="amount"><strong>Amount payable: Ksh {{ quote.fee | int }}</strong></p>
+  </div>
+  <form method="POST" action="{{ url_for('exit_pay') }}">
+    <input type="hidden" name="plate" value="{{ quote.plate }}">
+    <label for="payment_method">Payment Method</label>
+    <select id="payment_method" name="payment_method">
+      <option value="M-Pesa">M-Pesa</option>
+      <option value="Card">Card</option>
+      <option value="Cash">Cash</option>
+    </select>
+    <button type="submit">Confirm Payment &amp; Open Barrier</button>
+  </form>
+  {% endif %}
+</section>
+{% endblock %}

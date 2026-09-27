@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block title %}Home - SmartPark{% endblock %}
+{% block content %}
+<section class="board">
+  <p class="board-label">{{ available }} of {{ total }} bays available right now</p>
+</section>
+
+<section class="menu-grid">
+  <a class="menu-card" href="{{ url_for('display_board') }}">
+    <span class="menu-icon">📺</span>
+    <span class="menu-title">Display Board</span>
+    <span class="menu-desc">Live slot availability &amp; who's parked</span>
+  </a>
+
+  <a class="menu-card" href="{{ url_for('entry') }}">
+    <span class="menu-icon">🚗</span>
+    <span class="menu-title">Vehicle Entry</span>
+    <span class="menu-desc">Record an arriving vehicle</span>
+  </a>
+
+  <a class="menu-card" href="{{ url_for('exit_form') }}">
+    <span class="menu-icon">💳</span>
+    <span class="menu-title">Vehicle Exit</span>
+    <span class="menu-desc">Calculate fee &amp; confirm payment</span>
+  </a>
+
+  <a class="menu-card" href="{{ url_for('admin') }}">
+    <span class="menu-icon">📊</span>
+    <span class="menu-title">Admin</span>
+    <span class="menu-desc">Audit log &amp; total collections</span>
+  </a>
+</section>
+{% endblock %}

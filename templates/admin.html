@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% block title %}Admin - SmartPark{% endblock %}
+{% block content %}
+<section>
+  <h2>Audit Log &mdash; Reconciliation / VAT Reporting</h2>
+  <p class="amount"><strong>Total collected: Ksh {{ total | int }}</strong></p>
+  <table>
+    <tr>
+      <th>Plate</th><th>Bay</th><th>Entry</th><th>Exit</th>
+      <th>Duration (min)</th><th>Amount (Ksh)</th><th>Method</th>
+    </tr>
+    {% for r in rows %}
+    <tr>
+      <td>{{ r.plate_number }}</td>
+      <td>{{ r.bay_number }}</td>
+      <td>{{ r.entry_time }}</td>
+      <td>{{ r.exit_time }}</td>
+      <td>{{ r.duration_minutes }}</td>
+      <td>{{ r.amount_payable | int }}</td>
+      <td>{{ r.payment_method }}</td>
+    </tr>
+    {% else %}
+    <tr><td colspan="7">No completed sessions yet.</td></tr>
+    {% endfor %}
+  </table>
+</section>
+
+<section>
+  <h2>Current Rate Tiers (dynamic &mdash; edit in the RateTier table, no code change needed)</h2>
+  <table>
+    <tr><th>Label</th><th>Up to (minutes)</th><th>Fee (Ksh)</th></tr>
+    {% for t in tiers %}
+    <tr><td>{{ t.label }}</td><td>{{ t.up_to_minutes if t.up_to_minutes is not none else '∞' }}</td><td>{{ t.fee_kshs | int }}</td></tr>
+    {% endfor %}
+  </table>
+</section>
+{% endblock %}

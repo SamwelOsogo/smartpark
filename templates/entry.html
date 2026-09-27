@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block title %}Vehicle Entry - SmartPark{% endblock %}
+{% block content %}
+<section class="form-card">
+  <h2>Vehicle Entry</h2>
+  <p>{{ available }} of {{ total }} bays available.</p>
+  <form method="POST" action="{{ url_for('entry') }}">
+    <label for="plate">Number Plate</label>
+    <input type="text" id="plate" name="plate" placeholder="e.g. KDA123A" required autofocus>
+    <button type="submit">Record Entry &amp; Assign Bay</button>
+  </form>
+</section>
+{% endblock %}

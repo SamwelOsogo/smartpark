@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% block title %}Display Board - SmartPark{% endblock %}
+{% block content %}
+<section class="board">
+  <div class="big-number {{ 'full' if available == 0 else '' }}">
+    {{ available }} / {{ total }}
+  </div>
+  <p class="board-label">Bays available</p>
+</section>
+
+<section>
+  <h2>Rate Tiers</h2>
+  <table>
+    <tr><th>Duration</th><th>Fee (Ksh)</th></tr>
+    {% for t in tiers %}
+    <tr><td>{{ t.label }}</td><td>{{ t.fee_kshs | int }}</td></tr>
+    {% endfor %}
+  </table>
+</section>
+
+<section>
+  <h2>Currently Parked</h2>
+  {% if occupied %}
+  <table>
+    <tr><th>Bay</th><th>Plate</th><th>Entry Time</th></tr>
+    {% for v in occupied %}
+    <tr><td>{{ v.bay }}</td><td>{{ v.plate }}</td><td>{{ v.entry_time }}</td></tr>
+    {% endfor %}
+  </table>
+  {% else %}
+  <p>No vehicles currently parked.</p>
+  {% endif %}
+</section>
+{% endblock %}
